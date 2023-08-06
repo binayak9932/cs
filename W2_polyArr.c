@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int getHighestExponent(int *poly, int size) {
-    int highest_exponent = 0;
+int H_exp(int *poly, int size) {
+    int Max_exp = 0;
     for (int i = 1; i < size; i += 2) {
-        if (poly[i] > highest_exponent) {
-            highest_exponent = poly[i];
+        if (poly[i] > Max_exp) {
+            Max_exp = poly[i];
         }
     }
-    return highest_exponent;
+    return Max_exp;
 }
 
 
-void addPolynomials(int *poly1, int *poly2, int *result_poly) {
+void addpoly(int *poly1, int *poly2, int *r_poly) {
     int size1 = poly1[0];
     int size2 = poly2[0];
     int i = 1, j = 1, k = 1;
 
     while (i < size1 && j < size2) {
         if (poly1[i + 1] == poly2[j + 1]) {
-            result_poly[k] = poly1[i] + poly2[j];
-            result_poly[k + 1] = poly1[i + 1];
+            r_poly[k] = poly1[i] + poly2[j];
+            r_poly[k + 1] = poly1[i + 1];
             i += 2;
             j += 2;
         } else if (poly1[i + 1] > poly2[j + 1]) {
-            result_poly[k] = poly1[i];
-            result_poly[k + 1] = poly1[i + 1];
+            r_poly[k] = poly1[i];
+            r_poly[k + 1] = poly1[i + 1];
             i += 2;
         } else {
-            result_poly[k] = poly2[j];
-            result_poly[k + 1] = poly2[j + 1];
+            r_poly[k] = poly2[j];
+            r_poly[k + 1] = poly2[j + 1];
             j += 2;
         }
         k += 2;
@@ -37,27 +37,27 @@ void addPolynomials(int *poly1, int *poly2, int *result_poly) {
 
 
     while (i < size1) {
-        result_poly[k] = poly1[i];
-        result_poly[k + 1] = poly1[i + 1];
+        r_poly[k] = poly1[i];
+        r_poly[k + 1] = poly1[i + 1];
         i += 2;
         k += 2;
     }
 
 
     while (j < size2) {
-        result_poly[k] = poly2[j];
-        result_poly[k + 1] = poly2[j + 1];
+        r_poly[k] = poly2[j];
+        r_poly[k + 1] = poly2[j + 1];
         j += 2;
         k += 2;
     }
 
 
-    result_poly[0] = k;
+    r_poly[0] = k;
 }
 
 int main() {
     int size1, size2;
-    int *poly1, *poly2, *result_poly;
+    int *poly1, *poly2, *r_poly;
 
 
     printf("Enter the number of terms in the first polynomial: ");
@@ -93,19 +93,19 @@ int main() {
     poly2[0] = 2 * size2;
 
 
-    int size_result = getHighestExponent(poly1, 2 * size1 + 1) + getHighestExponent(poly2, 2 * size2 + 1) + 2;
+    int size_result = H_exp(poly1, 2 * size1 + 1) + H_exp(poly2, 2 * size2 + 1) + 2;
 
 
-    result_poly = (int *)malloc(size_result * sizeof(int));
+    r_poly = (int *)malloc(size_result * sizeof(int));
 
 
-    addPolynomials(poly1, poly2, result_poly);
+    addpoly(poly1, poly2, r_poly);
 
 
     printf("\nResultant Polynomial:\n");
-    for (int i = 1; i < result_poly[0]; i += 2) {
-        printf("%dx^%d ", result_poly[i], result_poly[i + 1]);
-        if (i < result_poly[0] - 2) {
+    for (int i = 1; i < r_poly[0]; i += 2) {
+        printf("%dx^%d ", r_poly[i], r_poly[i + 1]);
+        if (i < r_poly[0] - 2) {
             printf("+ ");
         }
     }
@@ -114,7 +114,7 @@ int main() {
 
     free(poly1);
     free(poly2);
-    free(result_poly);
+    free(r_poly);
 
     return 0;
 }
