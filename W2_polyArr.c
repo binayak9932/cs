@@ -70,9 +70,9 @@ int main() {
     printf("Enter the coefficients and exponents for the first polynomial:\n");
     for (int i = 1; i <= 2 * size1; i += 2) {
         printf("Coefficient %d: ", i / 2 + 1);
-        scanf("%d", &poly1[i]);
+        scanf("%d", poly1[i]);
         printf("Exponent %d: ", i / 2 + 1);
-        scanf("%d", &poly1[i + 1]);
+        scanf("%d", poly1[i + 1]);
     }
     poly1[0] = 2 * size1;
 
@@ -86,17 +86,17 @@ int main() {
     printf("Enter the coefficients and exponents for the second polynomial:\n");
     for (int i = 1; i <= 2 * size2; i += 2) {
         printf("Coefficient %d: ", i / 2 + 1);
-        scanf("%d", &poly2[i]);
+        scanf("%d", poly2[i]);
         printf("Exponent %d: ", i / 2 + 1);
-        scanf("%d", &poly2[i + 1]);
+        scanf("%d", poly2[i + 1]);
     }
     poly2[0] = 2 * size2;
 
 
-    int size_result = H_exp(poly1, 2 * size1 + 1) + H_exp(poly2, 2 * size2 + 1) + 2;
+    int size_r = H_exp(poly1, 2 * size1 + 1) + H_exp(poly2, 2 * size2 + 1) + 2;
 
 
-    r_poly = (int *)malloc(size_result * sizeof(int));
+    r_poly = (int *)malloc(size_r * sizeof(int));
 
 
     addpoly(poly1, poly2, r_poly);
